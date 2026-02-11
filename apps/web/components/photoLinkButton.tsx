@@ -37,7 +37,7 @@ const PhotoLinkButton = ({ href, children }: PhotoLinkButtonProps) => {
     return (
         <Button
             type="button"
-            className="w-full"
+            className="w-full md:max-w-[335px] lg:text-2xl lg:leading-[1.5]"
             onClick={handleThrottledClick}
         >
             {isLocked ? (
@@ -46,7 +46,7 @@ const PhotoLinkButton = ({ href, children }: PhotoLinkButtonProps) => {
                         src="/spinner.lottie"
                         autoplay
                         loop
-                        className="h-6"
+                        className="h-6 lg:h-9"
                     />
                 </div>
             ) : (
