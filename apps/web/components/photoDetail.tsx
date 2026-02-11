@@ -1,0 +1,89 @@
+"use client";
+
+import { usePhotoInfoSuspenseQuery } from "@/actions/usePhotoInfoQuery";
+import withSuspense from "@/components/withSuspense";
+import { Card } from "@repo/ui/card";
+import Image from "next/image";
+import { twMerge } from "tailwind-merge";
+
+interface PhotoDetailProps extends React.HTMLAttributes<HTMLElement> {
+
+}
+const PhotoDetail = ({ className, ...rest }: PhotoDetailProps) => {
+    const { data: photo } = usePhotoInfoSuspenseQuery();
+
+    return (
+        <div className={twMerge("w-full", className)} {...rest}>
+            <Image src={photo.download_url} alt={photo.author} width={photo.width} height={photo.height} className="rounded-3xl" />
+            <div className="flex flex-col gap-3 mt-10">
+                <Card items={[
+                    { label: "id", value: photo.id },
+                    { label: "author", value: photo.author },
+                ]} />
+                <Card items={[
+                    { label: "width", value: photo.width },
+                    { label: "height", value: photo.height },
+                ]} />
+                <Card items={[
+                    { label: "url", value: photo.url },
+                    { label: "download_url", value: photo.download_url },
+                ]} />
+            </div>
+        </div>
+    )
+}
+
+
+export interface PhotoDetailSkeletonProps extends React.HTMLAttributes<HTMLDivElement> { }
+
+function PhotoDetailSkeleton({ className, ...rest }: PhotoDetailSkeletonProps) {
+    return (
+        <div
+            className={twMerge("flex w-full flex-col gap-6 py-6 animate-pulse", className)}
+            aria-busy="true"
+            aria-live="polite"
+            {...rest}
+        >
+            <div className="w-full aspect-[4/3] rounded-3xl bg-neutral-200" />
+            <div className="flex flex-col gap-3 mt-4">
+                <div className="bg-white rounded-2xl flex flex-wrap gap-4 p-5">
+                    <div className="flex gap-4 flex-grow">
+                        <span className="h-4 w-10 rounded bg-neutral-200" />
+                        <span className="h-4 w-32 rounded bg-neutral-200" />
+                    </div>
+                    <div className="flex gap-4 flex-grow">
+                        <span className="h-4 w-14 rounded bg-neutral-200" />
+                        <span className="h-4 w-40 rounded bg-neutral-200" />
+                    </div>
+                </div>
+                <div className="bg-white rounded-2xl flex flex-wrap gap-4 p-5">
+                    <div className="flex gap-4 flex-grow">
+                        <span className="h-4 w-12 rounded bg-neutral-200" />
+                        <span className="h-4 w-24 rounded bg-neutral-200" />
+                    </div>
+                    <div className="flex gap-4 flex-grow">
+                        <span className="h-4 w-14 rounded bg-neutral-200" />
+                        <span className="h-4 w-28 rounded bg-neutral-200" />
+                    </div>
+                </div>
+                <div className="bg-white rounded-2xl flex flex-wrap gap-4 p-5">
+                    <div className="flex gap-4 flex-grow">
+                        <span className="h-4 w-10 rounded bg-neutral-200" />
+                        <span className="h-4 w-52 rounded bg-neutral-200" />
+                    </div>
+                    <div className="flex gap-4 flex-grow">
+                        <span className="h-4 w-28 rounded bg-neutral-200" />
+                        <span className="h-4 w-60 rounded bg-neutral-200" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+const PhotoDetailWithSuspense = withSuspense(
+    PhotoDetail,
+    <PhotoDetailSkeleton />
+);
+
+export default PhotoDetailWithSuspense;
