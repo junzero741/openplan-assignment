@@ -1,13 +1,13 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header"
 import Main from "@/components/main";
-import PageContainer from "@/components/pageContainer";
+import ResultPageContainer from "@/components/resultPageContainer";
 import Section from "@/components/section";
 
 
 export default function Result() {
   return (
-    <PageContainer>
+    <ResultPageContainer>
       <Header />
       <Main>
         <Section>
@@ -17,6 +17,6 @@ export default function Result() {
 
         </Footer>
       </Main>
-    </PageContainer>
+    </ResultPageContainer>
   );
 }
