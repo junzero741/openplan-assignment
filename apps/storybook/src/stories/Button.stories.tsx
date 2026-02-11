@@ -5,8 +5,8 @@ const meta = {
   title: "UI/Button",
   component: Button,
   args: {
-    children: "Click me"
-  }
+    children: "Click me",
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -17,14 +17,14 @@ export const Default: Story = {};
 
 export const Hover: Story = {
   args: {
-    className: `opacity-80`
+    className: `opacity-80`,
   },
-  name: "Hover"
+  name: "Hover",
 };
 
 export const Pressed: Story = {
   args: {
-    className: `opacity-80`
+    className: `opacity-80`,
   },
-  name: "Pressed"
+  name: "Pressed",
 };

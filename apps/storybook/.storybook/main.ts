@@ -5,8 +5,8 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx|mdx)"],
   addons: ["@storybook/addon-essentials", "@storybook/addon-interactions"],
   docs: {
-    autodocs: "tag"
-  }
+    autodocs: "tag",
+  },
 };
 
 export default config;

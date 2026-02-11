@@ -7,13 +7,13 @@ const meta = {
   args: {
     items: [
       { label: "Name", value: "OpenPlan" },
-      { label: "Description", value: "A reusable card from @repo/ui" }
-    ]
+      { label: "Description", value: "A reusable card from @repo/ui" },
+    ],
   },
   parameters: {
     backgrounds: {
-      default: 'light-gray',
-      values: [{ name: 'light-gray', value: '#f0f0f0' }],
+      default: "light-gray",
+      values: [{ name: "light-gray", value: "#f0f0f0" }],
     },
   },
 } satisfies Meta<typeof Card>;
@@ -27,14 +27,21 @@ export const Default: Story = {};
 export const LongContent: Story = {
   args: {
     items: [
-      { label: "Name", value: "OpenPlan with a very long name that might overflow" },
-      { label: "Description", value: "A reusable card from @repo/ui with an extended description to test layout behavior in various scenarios" }
-    ]
-  }
+      {
+        label: "Name",
+        value: "OpenPlan with a very long name that might overflow",
+      },
+      {
+        label: "Description",
+        value:
+          "A reusable card from @repo/ui with an extended description to test layout behavior in various scenarios",
+      },
+    ],
+  },
 };
 
 export const Empty: Story = {
   args: {
-    items: []
-  }
+    items: [],
+  },
 };

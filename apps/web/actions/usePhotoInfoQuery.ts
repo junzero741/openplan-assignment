@@ -1,9 +1,9 @@
 "use client";
 
 import {
-    useQuery,
-    type UseQueryOptions,
-    type UseSuspenseQueryOptions,
+  useQuery,
+  type UseQueryOptions,
+  type UseSuspenseQueryOptions,
 } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { usePhotoStore, type PhotoInfo } from "@/stores/photoStore";
@@ -11,41 +11,41 @@ import { usePhotoStore, type PhotoInfo } from "@/stores/photoStore";
 const PHOTO_INFO_URL = "https://picsum.photos/id/0/info";
 
 async function fetchPhotoInfo(): Promise<PhotoInfo> {
-    const response = await fetch(PHOTO_INFO_URL);
+  const response = await fetch(PHOTO_INFO_URL);
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch photo info");
-    }
+  if (!response.ok) {
+    throw new Error("Failed to fetch photo info");
+  }
 
-    return response.json();
+  return response.json();
 }
 
 type UsePhotoInfoQueryOptions = Omit<
-    UseQueryOptions<PhotoInfo, Error>,
-    "queryKey" | "queryFn"
+  UseQueryOptions<PhotoInfo, Error>,
+  "queryKey" | "queryFn"
 >;
 
 type UsePhotoInfoSuspenseQueryOptions = Omit<
-    UseSuspenseQueryOptions<PhotoInfo, Error>,
-    "queryKey" | "queryFn"
+  UseSuspenseQueryOptions<PhotoInfo, Error>,
+  "queryKey" | "queryFn"
 >;
 
 const PHOTO_QUERY_KEY = ["photo-info", 0];
 
 export function usePhotoInfoQuery(options: UsePhotoInfoQueryOptions = {}) {
-    const setPhoto = usePhotoStore((state) => state.setPhoto);
+  const setPhoto = usePhotoStore((state) => state.setPhoto);
 
-    const query = useQuery({
-        queryKey: PHOTO_QUERY_KEY,
-        queryFn: fetchPhotoInfo,
-        ...options,
-    });
+  const query = useQuery({
+    queryKey: PHOTO_QUERY_KEY,
+    queryFn: fetchPhotoInfo,
+    ...options,
+  });
 
-    useEffect(() => {
-        if (query.data) {
-            setPhoto(query.data);
-        }
-    }, [query.data, setPhoto]);
+  useEffect(() => {
+    if (query.data) {
+      setPhoto(query.data);
+    }
+  }, [query.data, setPhoto]);
 
-    return query;
+  return query;
 }

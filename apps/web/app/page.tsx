@@ -1,5 +1,5 @@
 import Footer from "@/components/footer";
-import Header from "@/components/header"
+import Header from "@/components/header";
 import Main from "@/components/main";
 import PageContainer from "@/components/pageContainer";
 import PhotoLinkButton from "@/components/photoLinkButton";
@@ -16,7 +16,7 @@ export default function Home() {
           </p>
         </Section>
         <Footer>
-          <PhotoLinkButton href='/result'>{`다음`}</PhotoLinkButton>
+          <PhotoLinkButton href="/result">{`다음`}</PhotoLinkButton>
         </Footer>
       </Main>
     </PageContainer>
