@@ -25,12 +25,12 @@ export function useThrottledClick(
     }, []);
 
     const handleThrottledClick = useCallback(async () => {
+        setIsLocked(true);
         if (disabled || isLocked || isThrottledRef.current) {
             return;
         }
 
 
-        setIsLocked(true);
         isThrottledRef.current = true;
         timeoutRef.current = window.setTimeout(() => {
             isThrottledRef.current = false;
