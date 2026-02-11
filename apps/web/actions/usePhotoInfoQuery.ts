@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { usePhotoStore, type PhotoInfo } from "@/stores/photoStore";
 
@@ -16,12 +16,18 @@ async function fetchPhotoInfo(): Promise<PhotoInfo> {
     return response.json();
 }
 
-export function usePhotoInfoQuery() {
+type UsePhotoInfoQueryOptions = Omit<
+    UseQueryOptions<PhotoInfo, Error>,
+    "queryKey" | "queryFn"
+>;
+
+export function usePhotoInfoQuery(options: UsePhotoInfoQueryOptions = {}) {
     const setPhoto = usePhotoStore((state) => state.setPhoto);
 
     const query = useQuery({
         queryKey: ["photo-info", 0],
         queryFn: fetchPhotoInfo,
+        ...options,
     });
 
     useEffect(() => {
