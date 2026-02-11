@@ -1,9 +1,10 @@
 import Header from "@/components/header"
+import PageContainer from "@/components/pageContainer";
 import PhotoLinkButton from "@/components/photoLinkButton";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <PageContainer>
       <Header className="text-[#1A1A1A]" />
       <main className="flex flex-col flex-grow h-full justify-center">
         <section className="flex justify-center items-center h-full flex-grow">
@@ -15,6 +16,6 @@ export default function Home() {
           <PhotoLinkButton href='/result'>{`다음`}</PhotoLinkButton>
         </footer>
       </main>
-    </div>
+    </PageContainer>
   );
 }
