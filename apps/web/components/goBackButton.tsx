@@ -8,7 +8,7 @@ const GoBackButton = ({ }: ButtonProps) => {
     const router = useRouter();
 
     return (
-        <Button onClick={router.back} className="w-full">
+        <Button onClick={router.back} className="w-full md:max-w-[154px]">
             이전
         </Button>
     )
