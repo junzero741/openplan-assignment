@@ -20,7 +20,7 @@ const PhotoLinkButton = ({ href, children }: PhotoLinkButtonProps) => {
     const { handleThrottledClick, isLocked } = useThrottledClick(
         async () => {
             if (!photo) {
-                await refetch();
+                refetch();
             }
             router.push(String(href));
         },
