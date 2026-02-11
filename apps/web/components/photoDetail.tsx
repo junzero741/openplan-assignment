@@ -39,6 +39,8 @@ const PhotoDetail = ({ className, ...rest }: PhotoDetailProps) => {
     return (
         <PhotoDetailLayout className={twMerge(LAYOUT_CLASS, className)} {...rest}>
             <Image
+                fetchPriority="high"
+                loading="eager"
                 src={photo.download_url}
                 alt={photo.author}
                 width={photo.width}
