@@ -1,18 +1,22 @@
+import Footer from "@/components/footer";
 import Header from "@/components/header"
+import Main from "@/components/main";
 import PageContainer from "@/components/pageContainer";
+import Section from "@/components/section";
+
 
 export default function Result() {
   return (
     <PageContainer>
       <Header />
-      <main className="flex flex-col flex-grow justify-center">
-        <section className="flex justify-center items-center flex-grow">
+      <Main>
+        <Section>
 
-        </section>
-        <footer className="px-5 py-10">
+        </Section>
+        <Footer>
 
-        </footer>
-      </main>
+        </Footer>
+      </Main>
     </PageContainer>
   );
 }
