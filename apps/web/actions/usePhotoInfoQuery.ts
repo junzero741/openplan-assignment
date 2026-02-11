@@ -1,6 +1,11 @@
 "use client";
 
-import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
+import {
+    useQuery,
+    useSuspenseQuery,
+    type UseQueryOptions,
+    type UseSuspenseQueryOptions,
+} from "@tanstack/react-query";
 import { useEffect } from "react";
 import { usePhotoStore, type PhotoInfo } from "@/stores/photoStore";
 
@@ -21,11 +26,38 @@ type UsePhotoInfoQueryOptions = Omit<
     "queryKey" | "queryFn"
 >;
 
+type UsePhotoInfoSuspenseQueryOptions = Omit<
+    UseSuspenseQueryOptions<PhotoInfo, Error>,
+    "queryKey" | "queryFn"
+>;
+
+const PHOTO_QUERY_KEY = ["photo-info", 0];
+
 export function usePhotoInfoQuery(options: UsePhotoInfoQueryOptions = {}) {
     const setPhoto = usePhotoStore((state) => state.setPhoto);
 
     const query = useQuery({
-        queryKey: ["photo-info", 0],
+        queryKey: PHOTO_QUERY_KEY,
+        queryFn: fetchPhotoInfo,
+        ...options,
+    });
+
+    useEffect(() => {
+        if (query.data) {
+            setPhoto(query.data);
+        }
+    }, [query.data, setPhoto]);
+
+    return query;
+}
+
+export function usePhotoInfoSuspenseQuery(
+    options: UsePhotoInfoSuspenseQueryOptions = {}
+) {
+    const setPhoto = usePhotoStore((state) => state.setPhoto);
+
+    const query = useSuspenseQuery({
+        queryKey: PHOTO_QUERY_KEY,
         queryFn: fetchPhotoInfo,
         ...options,
     });
