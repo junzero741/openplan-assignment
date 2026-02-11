@@ -2,16 +2,38 @@
 
 import { usePhotoInfoSuspenseQuery } from "@/actions/usePhotoInfoQuery";
 import withSuspense from "@/components/withSuspense";
+import { usePhotoStore } from "@/stores/photoStore";
 import { Card } from "@repo/ui/card";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface PhotoDetailProps extends React.HTMLAttributes<HTMLElement> {
 
 }
 const PhotoDetail = ({ className, ...rest }: PhotoDetailProps) => {
-    const { data: photo } = usePhotoInfoSuspenseQuery();
+    const photo = usePhotoStore((state) => state.photo);
+    const router = useRouter();
 
+    // 사진을 조회한 이력없이 "/result"로 이동하는 경우, 1초 뒤 메인 페이지로 이동
+    useEffect(() => {
+        if (photo) return;
+
+        const timeoutId = window.setTimeout(() => {
+            if (!usePhotoStore.getState().photo) {
+                router.replace("/");
+            }
+        }, 1000);
+
+        return () => window.clearTimeout(timeoutId);
+    }, [photo, router]);
+
+    if (!photo) {
+        return (
+            <PhotoDetailSkeleton className={className} {...rest} />
+        )
+    }
     return (
         <div className={twMerge("w-full", className)} {...rest}>
             <Image src={photo.download_url} alt={photo.author} width={photo.width} height={photo.height} className="rounded-3xl" />
@@ -86,4 +108,4 @@ const PhotoDetailWithSuspense = withSuspense(
     <PhotoDetailSkeleton />
 );
 
-export default PhotoDetailWithSuspense;
+export default PhotoDetail;
