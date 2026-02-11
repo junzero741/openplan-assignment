@@ -20,7 +20,7 @@ export function Card({
       {items.map((item, index) => (
         <div key={index} className="flex gap-4 flex-grow">
           <span className="text-[#111111]">{item.label}</span>
-          <span className="text-[#111111] opacity-50">{item.value}</span>
+          <span className="text-[#111111] opacity-50 break-all">{item.value}</span>
         </div>
       ))}
     </div>
