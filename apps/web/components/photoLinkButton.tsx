@@ -9,7 +9,7 @@ export interface PhotoLinkButtonProps extends LinkProps {
 const PhotoLinkButton = ({ href, children }: PhotoLinkButtonProps) => {
     return (
         <Link href={href}>
-            <Button type="button">{children}</Button>
+            <Button type="button" className="w-full">{children}</Button>
         </Link>
     );
 };
