@@ -4,6 +4,7 @@ import { usePhotoInfoQuery } from "@/actions/usePhotoInfoQuery";
 import { useThrottledClick } from "@/hooks/useThrottledClick";
 import { usePhotoStore } from "@/stores/photoStore";
 import { Button, ButtonProps } from "@repo/ui/button";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -39,7 +40,18 @@ const PhotoLinkButton = ({ href, children }: PhotoLinkButtonProps) => {
             className="w-full"
             onClick={handleThrottledClick}
         >
-            {children}
+            {isLocked ? (
+                <div className="flex w-full items-center justify-center">
+                    <DotLottieReact
+                        src="/spinner.lottie"
+                        autoplay
+                        loop
+                        className="h-6"
+                    />
+                </div>
+            ) : (
+                children
+            )}
         </Button>
     );
 };
