@@ -2,7 +2,6 @@
 
 import {
     useQuery,
-    useSuspenseQuery,
     type UseQueryOptions,
     type UseSuspenseQueryOptions,
 } from "@tanstack/react-query";
@@ -37,26 +36,6 @@ export function usePhotoInfoQuery(options: UsePhotoInfoQueryOptions = {}) {
     const setPhoto = usePhotoStore((state) => state.setPhoto);
 
     const query = useQuery({
-        queryKey: PHOTO_QUERY_KEY,
-        queryFn: fetchPhotoInfo,
-        ...options,
-    });
-
-    useEffect(() => {
-        if (query.data) {
-            setPhoto(query.data);
-        }
-    }, [query.data, setPhoto]);
-
-    return query;
-}
-
-export function usePhotoInfoSuspenseQuery(
-    options: UsePhotoInfoSuspenseQueryOptions = {}
-) {
-    const setPhoto = usePhotoStore((state) => state.setPhoto);
-
-    const query = useSuspenseQuery({
         queryKey: PHOTO_QUERY_KEY,
         queryFn: fetchPhotoInfo,
         ...options,
