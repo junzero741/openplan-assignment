@@ -1,13 +1,15 @@
 "use client";
 
-
-import withSuspense from "@/components/withSuspense";
 import { usePhotoStore } from "@/stores/photoStore";
 import { Card } from "@repo/ui/card";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
+
+const LAYOUT_CLASS = "w-full flex flex-col lg:flex-row gap-10 justify-center items-center";
+const IMAGE_CLASS = "rounded-3xl lg:max-w-[50%]";
+const META_CLASS = "flex flex-col flex-grow w-full gap-3";
 
 interface PhotoDetailProps extends React.HTMLAttributes<HTMLElement> {
 
@@ -35,77 +37,73 @@ const PhotoDetail = ({ className, ...rest }: PhotoDetailProps) => {
         )
     }
     return (
-        <div className={twMerge("w-full flex flex-col lg:flex-row gap-10 justify-center items-center", className)} {...rest}>
-            <Image src={photo.download_url} alt={photo.author} width={photo.width} height={photo.height} className="rounded-3xl lg:max-w-[660px] md:max-w-[728px]" />
-            <div className="flex flex-col gap-3">
-                <Card items={[
+        <PhotoDetailLayout className={twMerge(LAYOUT_CLASS, className)} {...rest}>
+            <Image
+                src={photo.download_url}
+                alt={photo.author}
+                width={photo.width}
+                height={photo.height}
+                className={IMAGE_CLASS}
+            />
+            <PhotoMetaList items={[
+                [
                     { label: "id", value: photo.id },
                     { label: "author", value: photo.author },
-                ]} />
-                <Card items={[
+                ],
+                [
                     { label: "width", value: photo.width },
                     { label: "height", value: photo.height },
-                ]} />
-                <Card items={[
+                ],
+                [
                     { label: "url", value: photo.url },
                     { label: "download_url", value: photo.download_url },
-                ]} />
-            </div>
-        </div>
+                ]
+            ]} />
+        </PhotoDetailLayout>
     )
 }
 
 
 export interface PhotoDetailSkeletonProps extends React.HTMLAttributes<HTMLDivElement> { }
 
-function PhotoDetailSkeleton({ className, ...rest }: PhotoDetailSkeletonProps) {
+const PhotoDetailSkeleton = ({ className, ...rest }: PhotoDetailSkeletonProps) => {
     return (
-        <div
-            className={twMerge("flex w-full flex-col gap-6 py-6 animate-pulse", className)}
+        <PhotoDetailLayout
+            className={twMerge("animate-pulse", className)}
             aria-busy="true"
             aria-live="polite"
             {...rest}
         >
-            <div className="w-full aspect-[4/3] rounded-3xl bg-neutral-200" />
-            <div className="flex flex-col gap-3 mt-4">
-                <div className="bg-white rounded-2xl flex flex-wrap gap-4 p-5">
-                    <div className="flex gap-4 flex-grow">
-                        <span className="h-4 w-10 rounded bg-neutral-200" />
-                        <span className="h-4 w-32 rounded bg-neutral-200" />
-                    </div>
-                    <div className="flex gap-4 flex-grow">
-                        <span className="h-4 w-14 rounded bg-neutral-200" />
-                        <span className="h-4 w-40 rounded bg-neutral-200" />
-                    </div>
-                </div>
-                <div className="bg-white rounded-2xl flex flex-wrap gap-4 p-5">
-                    <div className="flex gap-4 flex-grow">
-                        <span className="h-4 w-12 rounded bg-neutral-200" />
-                        <span className="h-4 w-24 rounded bg-neutral-200" />
-                    </div>
-                    <div className="flex gap-4 flex-grow">
-                        <span className="h-4 w-14 rounded bg-neutral-200" />
-                        <span className="h-4 w-28 rounded bg-neutral-200" />
-                    </div>
-                </div>
-                <div className="bg-white rounded-2xl flex flex-wrap gap-4 p-5">
-                    <div className="flex gap-4 flex-grow">
-                        <span className="h-4 w-10 rounded bg-neutral-200" />
-                        <span className="h-4 w-52 rounded bg-neutral-200" />
-                    </div>
-                    <div className="flex gap-4 flex-grow">
-                        <span className="h-4 w-28 rounded bg-neutral-200" />
-                        <span className="h-4 w-60 rounded bg-neutral-200" />
-                    </div>
-                </div>
-            </div>
+            <PhotoImageSkeleton />
+            <PhotoMetaList items={[[], [], []]} />
+        </PhotoDetailLayout>
+    );
+};
+
+const PhotoDetailLayout = ({ className, ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
+    return <div className={twMerge(LAYOUT_CLASS, className)} {...rest} />;
+};
+
+const PhotoMetaList = ({ items }: { items: Array<Array<{ label: string; value: string | number }>> }) => {
+    return (
+        <div className={META_CLASS}>
+            {items.map((cardItems, index) => (
+                <Card key={index} items={cardItems} />
+            ))}
         </div>
     );
-}
+};
 
-const PhotoDetailWithSuspense = withSuspense(
-    PhotoDetail,
-    <PhotoDetailSkeleton />
-);
+const PhotoImageSkeleton = ({ className, ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
+    return (
+        <div
+            className={twMerge("w-full aspect-[4/3] bg-neutral-200", IMAGE_CLASS, className)}
+            {...rest}
+        />
+    );
+};
+
+
+
 
 export default PhotoDetail;
