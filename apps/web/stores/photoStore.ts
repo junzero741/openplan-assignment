@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export type PhotoInfo = {
     id: string;
@@ -14,7 +15,15 @@ type PhotoState = {
     setPhoto: (photo: PhotoInfo) => void;
 };
 
-export const usePhotoStore = create<PhotoState>((set) => ({
-    photo: null,
-    setPhoto: (photo) => set({ photo }),
-}));
+export const usePhotoStore = create<PhotoState>()(
+    persist(
+        (set) => ({
+            photo: null,
+            setPhoto: (photo) => set({ photo }),
+        }),
+        {
+            name: "photo-store",
+            partialize: (state) => ({ photo: state.photo }),
+        }
+    )
+);
