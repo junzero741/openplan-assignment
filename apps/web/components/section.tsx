@@ -7,7 +7,7 @@ interface SectionProps extends React.HTMLAttributes<HTMLElement> {
 
 const Section = ({ className, children, ...rest }: SectionProps) => {
     return (
-        <section className={twMerge("flex justify-center items-center flex-grow", className)} {...rest}>
+        <section className={twMerge("flex justify-center items-center flex-grow px-5", className)} {...rest}>
             {children}
         </section>
     )
