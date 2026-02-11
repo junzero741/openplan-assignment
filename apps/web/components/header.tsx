@@ -14,7 +14,7 @@ export default function Header({
             className={twMerge(`w-full bg-transparent px-5 py-4 text-white ${className}`)}
             aria-label="Site header"
         >
-            <div className="flex justify-center leading-[1.4]">정준영</div>
+            <div className="flex justify-center leading-[1.4]">{'정준영'}</div>
         </header>
     );
 }

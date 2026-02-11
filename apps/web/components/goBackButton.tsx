@@ -9,7 +9,7 @@ const GoBackButton = ({ }: ButtonProps) => {
 
     return (
         <Button onClick={router.back} className="w-full md:max-w-[154px]">
-            이전
+            {'이전'}
         </Button>
     )
 }
