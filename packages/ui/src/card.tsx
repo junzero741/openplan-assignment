@@ -1,27 +1,28 @@
-import { type JSX } from "react";
+"use client";
+
+import { twMerge } from "tailwind-merge";
+
+
+type CardItem = {
+  label: string,
+  value: string | number
+}
+
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  items: CardItem[]
+}
 
 export function Card({
-  className,
-  title,
-  children,
-  href,
-}: {
-  className?: string;
-  title: string;
-  children: React.ReactNode;
-  href: string;
-}): JSX.Element {
+  className, items, ...rest
+}: CardProps) {
   return (
-    <a
-      className={className}
-      href={`${href}?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"`}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <h2>
-        {title} <span>-&gt;</span>
-      </h2>
-      <p>{children}</p>
-    </a>
+    <div className={twMerge("bg-white rounded-2xl flex flex-wrap gap-4 p-5", className)} {...rest}>
+      {items.map((item, index) => (
+        <div key={index} className="flex gap-4 flex-grow">
+          <span className="text-[#111111]">{item.label}</span>
+          <span className="text-[#111111] opacity-50">{item.value}</span>
+        </div>
+      ))}
+    </div>
   );
 }
