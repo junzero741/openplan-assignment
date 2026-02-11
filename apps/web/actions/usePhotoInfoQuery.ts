@@ -1,15 +1,8 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-
-type PhotoInfo = {
-    id: string,
-    author: string;
-    width: number;
-    height: number;
-    url: string;
-    download_url: string;
-};
+import { useEffect } from "react";
+import { usePhotoStore, type PhotoInfo } from "@/stores/photoStore";
 
 const PHOTO_INFO_URL = "https://picsum.photos/id/0/info";
 
@@ -24,8 +17,18 @@ async function fetchPhotoInfo(): Promise<PhotoInfo> {
 }
 
 export function usePhotoInfoQuery() {
-    return useQuery({
+    const setPhoto = usePhotoStore((state) => state.setPhoto);
+
+    const query = useQuery({
         queryKey: ["photo-info", 0],
         queryFn: fetchPhotoInfo,
     });
+
+    useEffect(() => {
+        if (query.data) {
+            setPhoto(query.data);
+        }
+    }, [query.data, setPhoto]);
+
+    return query;
 }
