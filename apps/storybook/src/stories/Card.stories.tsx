@@ -32,3 +32,9 @@ export const LongContent: Story = {
     ]
   }
 };
+
+export const Empty: Story = {
+  args: {
+    items: []
+  }
+};
