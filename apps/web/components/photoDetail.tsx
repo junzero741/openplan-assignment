@@ -1,6 +1,6 @@
 "use client";
 
-import { usePhotoInfoSuspenseQuery } from "@/actions/usePhotoInfoQuery";
+
 import withSuspense from "@/components/withSuspense";
 import { usePhotoStore } from "@/stores/photoStore";
 import { Card } from "@repo/ui/card";
@@ -35,9 +35,9 @@ const PhotoDetail = ({ className, ...rest }: PhotoDetailProps) => {
         )
     }
     return (
-        <div className={twMerge("w-full", className)} {...rest}>
-            <Image src={photo.download_url} alt={photo.author} width={photo.width} height={photo.height} className="rounded-3xl" />
-            <div className="flex flex-col gap-3 mt-10">
+        <div className={twMerge("w-full flex flex-col lg:flex-row gap-10 justify-center items-center", className)} {...rest}>
+            <Image src={photo.download_url} alt={photo.author} width={photo.width} height={photo.height} className="rounded-3xl lg:max-w-[660px] md:max-w-[728px]" />
+            <div className="flex flex-col gap-3">
                 <Card items={[
                     { label: "id", value: photo.id },
                     { label: "author", value: photo.author },
