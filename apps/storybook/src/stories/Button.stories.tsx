@@ -5,7 +5,6 @@ const meta = {
   title: "UI/Button",
   component: Button,
   args: {
-    appName: "Storybook",
     children: "Click me"
   }
 } satisfies Meta<typeof Button>;
