@@ -13,6 +13,7 @@ export type PhotoInfo = {
 type PhotoState = {
   photo: PhotoInfo | null;
   setPhoto: (photo: PhotoInfo) => void;
+  clearPhoto: () => void;
 };
 
 export const usePhotoStore = create<PhotoState>()(
@@ -20,6 +21,7 @@ export const usePhotoStore = create<PhotoState>()(
     (set) => ({
       photo: null,
       setPhoto: (photo) => set({ photo }),
+      clearPhoto: () => set({ photo: null }),
     }),
     {
       name: "photo-store",
