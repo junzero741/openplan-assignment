@@ -15,7 +15,7 @@ export function Card({ className, items, ...rest }: CardProps) {
   return (
     <div
       className={twMerge(
-        "bg-white rounded-2xl flex flex-wrap gap-4 p-5 drop-shadow-md",
+        "bg-white rounded-2xl flex flex-wrap gap-4 p-5",
         className,
       )}
       {...rest}

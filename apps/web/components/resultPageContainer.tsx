@@ -18,7 +18,7 @@ const ResultPageContainer = ({
 
   return (
     <PageContainer
-      className={twMerge("bg-cover bg-center", className)}
+      className={twMerge("bg-cover bg-center bg-black/30", className)}
       style={backgroundImage ? { backgroundImage, ...style } : style}
       {...props}
     />
