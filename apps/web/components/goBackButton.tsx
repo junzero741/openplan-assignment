@@ -2,12 +2,26 @@
 
 import { Button, ButtonProps } from "@repo/ui/button";
 import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
-const GoBackButton = ({}: ButtonProps) => {
+export interface GoBackButtonProps extends ButtonProps {}
+
+const GoBackButton = ({ onClick, className, ...rest }: GoBackButtonProps) => {
   const router = useRouter();
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (onClick) {
+      onClick(e);
+    }
+    router.back();
+  };
+
   return (
-    <Button onClick={router.back} className="w-full md:max-w-[154px]">
+    <Button
+      onClick={handleClick}
+      className={twMerge("w-full", className)}
+      {...rest}
+    >
       {"이전"}
     </Button>
   );
