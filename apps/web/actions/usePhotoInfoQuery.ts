@@ -7,7 +7,8 @@ import {
 import { useEffect } from "react";
 import { usePhotoStore, type PhotoInfo } from "@/stores/photoStore";
 
-const PHOTO_INFO_URL = "https://picsum.photos/id/0/info";
+const DEFAULT_PHOTO_ID = 0;
+const PHOTO_INFO_URL = `https://picsum.photos/id/${DEFAULT_PHOTO_ID}/info`;
 
 async function fetchPhotoInfo(): Promise<PhotoInfo> {
   const response = await fetch(PHOTO_INFO_URL);
@@ -24,7 +25,7 @@ type UsePhotoInfoQueryOptions = Omit<
   "queryKey" | "queryFn"
 >;
 
-export const PHOTO_QUERY_KEY = ["photo-info", 0];
+export const PHOTO_QUERY_KEY = ["photo-info", DEFAULT_PHOTO_ID];
 
 export function usePhotoInfoQuery(options: UsePhotoInfoQueryOptions = {}) {
   const setPhoto = usePhotoStore((state) => state.setPhoto);

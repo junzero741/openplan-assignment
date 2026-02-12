@@ -24,7 +24,7 @@ const PhotoLinkButton = ({ href, children }: PhotoLinkButtonProps) => {
       }
       router.push(String(href));
     },
-    { throttleMs: 800, disabled: isFetching },
+    { disabled: isFetching },
   );
 
   // 사진을 한번이라도 조회한 이력이 있을 시 "/result" 페이지로 자동으로 이동

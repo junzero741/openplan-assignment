@@ -11,6 +11,7 @@ const LAYOUT_CLASS =
   "w-full flex flex-col lg:flex-row gap-10 justify-center items-center";
 const IMAGE_CLASS = "rounded-3xl lg:max-w-[50%]";
 const META_CLASS = "flex flex-col flex-grow w-full gap-3";
+const DEFAULT_REDIRECT_TIMEOUT_MS = 1000;
 
 interface PhotoDetailProps extends React.HTMLAttributes<HTMLElement> {}
 const PhotoDetail = ({ className, ...rest }: PhotoDetailProps) => {
@@ -25,7 +26,7 @@ const PhotoDetail = ({ className, ...rest }: PhotoDetailProps) => {
       if (!usePhotoStore.getState().photo) {
         router.replace("/");
       }
-    }, 1000);
+    }, DEFAULT_REDIRECT_TIMEOUT_MS);
 
     return () => window.clearTimeout(timeoutId);
   }, [photo, router]);
