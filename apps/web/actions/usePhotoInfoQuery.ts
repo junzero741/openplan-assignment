@@ -3,7 +3,6 @@
 import {
   useQuery,
   type UseQueryOptions,
-  type UseSuspenseQueryOptions,
 } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { usePhotoStore, type PhotoInfo } from "@/stores/photoStore";
@@ -22,11 +21,6 @@ async function fetchPhotoInfo(): Promise<PhotoInfo> {
 
 type UsePhotoInfoQueryOptions = Omit<
   UseQueryOptions<PhotoInfo, Error>,
-  "queryKey" | "queryFn"
->;
-
-type UsePhotoInfoSuspenseQueryOptions = Omit<
-  UseSuspenseQueryOptions<PhotoInfo, Error>,
   "queryKey" | "queryFn"
 >;
 
