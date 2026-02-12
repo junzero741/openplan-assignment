@@ -18,10 +18,13 @@ type PhotoState = {
 
 export const usePhotoStore = create<PhotoState>()(
   persist(
-    (set) => ({
+    (set, _get, api) => ({
       photo: null,
       setPhoto: (photo) => set({ photo }),
-      clearPhoto: () => set({ photo: null }),
+      clearPhoto: () => {
+        set({ photo: null });
+        api.persist.clearStorage();
+      },
     }),
     {
       name: "photo-store",
