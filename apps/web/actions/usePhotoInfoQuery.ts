@@ -24,7 +24,7 @@ type UsePhotoInfoQueryOptions = Omit<
   "queryKey" | "queryFn"
 >;
 
-const PHOTO_QUERY_KEY = ["photo-info", 0];
+export const PHOTO_QUERY_KEY = ["photo-info", 0];
 
 export function usePhotoInfoQuery(options: UsePhotoInfoQueryOptions = {}) {
   const setPhoto = usePhotoStore((state) => state.setPhoto);
