@@ -1,8 +1,8 @@
 import Footer from "@/components/footer";
-import GoBackButton from "@/components/goBackButton";
 import Header from "@/components/header";
 import Main from "@/components/main";
 import PhotoDetail from "@/components/photoDetail";
+import ResultGoBackButton from "@/components/resultGoBackButton";
 import ResultPageContainer from "@/components/resultPageContainer";
 import Section from "@/components/section";
 
@@ -15,7 +15,7 @@ export default function Result() {
           <PhotoDetail />
         </Section>
         <Footer>
-          <GoBackButton />
+          <ResultGoBackButton />
         </Footer>
       </Main>
     </ResultPageContainer>
