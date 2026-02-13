@@ -10,10 +10,11 @@ const GoBackButton = ({ onClick, className, ...rest }: GoBackButtonProps) => {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    router.back();
+    
     if (onClick) {
       onClick(e);
     }
-    router.back();
   };
 
   return (
